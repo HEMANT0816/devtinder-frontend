@@ -1,11 +1,16 @@
 import axios from 'axios';
 import React, { useRef, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+  const navigate=useNavigate();
 
   const formdata=useRef({email:"",password:""});
 
   const [test,setTest]=useState(0);
+  const dispatch=useDispatch();
+
 
  const SubmitData=async ()=>{
   const {email,password}=formdata.current
@@ -18,7 +23,14 @@ const Login = () => {
       withCredentials:true
     })
 
-    console.log(response.data)
+    dispatch({
+      type:"setUser",
+      payload:response.data
+    })
+
+    navigate("/feed");
+
+    
   } catch (error) {
     console.log("error in login is ->",error)
     
@@ -41,7 +53,7 @@ const Login = () => {
  
   return (
     <div className='w-[100%] flex justify-center' >
-      <div className="card card-border bg-base-200 w-96">
+      <div className="card card-border bg-base-300 w-96">
   <div className="card-body">
     <h2 className="card-title">LOGIN</h2>
     <label for="email" >EMAIL:</label>
