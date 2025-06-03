@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
@@ -8,7 +8,7 @@ const userSlice = createSlice({
   },
   reducers: {
     setUser: (state, action) => {
-      state.userInfo = action.payload;
+      state.userInfo = action.payload.userInfo;
       state.isLoggedIn = true;
     },
     logout: (state) => {

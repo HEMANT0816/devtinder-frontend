@@ -1,17 +1,19 @@
-import { useState } from 'react'
+
 import {BrowserRouter} from "react-router-dom"
 import {Routes,Route} from "react-router"
 import './App.css'
 import Login from './components/common/Login'
 import Feed from './components/common/Feed'
 import HomePage from './pages/HomePage'
-import {Provider} from "react-redux"
-import {store} from './redux/Store'
+import { useSelector } from 'react-redux'
 function App() {
-  const [count, setCount] = useState(0)
+  const isLoggedIn=useSelector((state)=>state.user.isLoggedIn)
+
+  
 
   return (
-    <Provider store={store}>
+    
+     
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<HomePage/>}>
@@ -21,7 +23,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
+   
   )
 }
 

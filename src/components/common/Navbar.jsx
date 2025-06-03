@@ -1,6 +1,22 @@
+import axios from 'axios'
 import React from 'react'
+import { BASE_URL } from '../../backendUrl/user'
+import { logout } from '../../redux/slices/userSlice'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 const Navbar = () => {
+  const dispatch=useDispatch();
+  const navigate=useNavigate();
+
+  async function logoutUser(){
+
+    const response =await axios.post(BASE_URL+"logout",{},{  withCredentials: true });
+    dispatch(logout());
+    navigate("/login") 
+
+  }
+
   return (
     <div className='w-[100%]'>
       <div >
@@ -28,7 +44,7 @@ const Navbar = () => {
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><button onClick={logoutUser}>Logout</button></li>
       </ul>
     </div>
   </div>
