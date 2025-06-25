@@ -9,29 +9,36 @@ import {
   setPageNumber,
 } from "../../redux/slices/feedSlice";
 import { useNavigate } from "react-router";
+import { getPendingRequestURL } from "../../backendUrl/user";
+import {fetchPendingRequestsSuccess,setUserNumber,incrementPageNumber} from "../../redux/slices/pendingRequestSlice"
 
-const Feed = () => {
+const Card = () => {
   const dispatch = useDispatch();
-  const pageNumber = useSelector((state) => state.feed.pageNumber);
-  const userFeed = useSelector((state) => state.feed.userFeed);
-  const userNumber = useSelector((state) => state.feed.userNumber);
+  const pageNumber = useSelector((state) => state.pendingRequests.pageNumber);
+  const userFeed = useSelector((state) => state.pendingRequests.pendingRequests);
+  const userNumber = useSelector((state) => state.pendingRequests.userNumber);
   const [animationClass, setAnimationClass] = useState("");
   const [disabled, setDisabled] = useState(false);
   const navigate=useNavigate();
   const user = userFeed ? userFeed[userNumber] : {};
+  console.log("userNumber->",userNumber)
+  console.log("page->",pageNumber)
 
   const fetchUserFeed = async () => {
     try {
-      const response = await axios.get(`${REQUEST_URL}feed?page=1`, {
+      const response = await axios.get(getPendingRequestURL, {
         withCredentials: true,
       });
-      console.log(response?.data?.userIds )
-      console.log("seeing the fetch data",response?.data?.userIds )
-      if(response?.data?.userIds.length==0){
+     
+      console.log("seeing the fetch Pendingdata",response?.data?.pendingRequests )
+      if(response?.data?.pendingRequests.length==0){
        console.log("navigate by the useefect hook")
         navigate('/takeABreak')
       }
-      dispatch(setFeed({ feed: response?.data?.userIds }));
+
+      const userData=response?.data?.pendingRequests.map((element)=>element.senderId);
+      console.log("aray data",userFeed)
+      dispatch(fetchPendingRequestsSuccess(userData));
     } catch (err) {
       console.error("Feed fetch failed:", err);
     }
@@ -43,7 +50,7 @@ const Feed = () => {
    try {
     console.log("usernumber->",userNumber)
 
-     const result=await axios.post(sendConnectionRequestURL+"/"+status+"/"+user?._id,{},{withCredentials:true})
+    //  const result=await axios.post(sendConnectionRequestURL+"/"+status+"/"+user?._id,{},{withCredentials:true})
 
     
      
@@ -55,10 +62,10 @@ const Feed = () => {
 
     if (userNumber >=9) {
       
-      dispatch(setPageNumber());
+      dispatch(incrementPageNumberPageNumber());
       dispatch(resetUserNumber());
     } else {
-      dispatch(incrementUserNumber());
+      dispatch(setUserNumber());
     }
    
     
@@ -81,7 +88,7 @@ const Feed = () => {
 
   useEffect(() => {
     fetchUserFeed();
-  }, [pageNumber]);
+  }, []);
 
   return (
     <div>
@@ -114,14 +121,14 @@ const Feed = () => {
               onClick={() => handleAction("left","ignore")}
               disabled={disabled}
             >
-              Ignore
+              Rejected
             </button>
             <button
               className="btn btn-success btn-outline w-[45%]"
               onClick={() => handleAction("right","interested")}
               disabled={disabled}
             >
-              Interested
+              Accepted
             </button>
           </div>
         </div>
@@ -131,4 +138,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default Card;

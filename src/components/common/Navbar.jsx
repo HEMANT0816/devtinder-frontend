@@ -2,12 +2,13 @@ import axios from 'axios'
 import React from 'react'
 import { BASE_URL } from '../../backendUrl/user'
 import { logout } from '../../redux/slices/userSlice'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router'
 
 const Navbar = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate();
+  const user=useSelector((state)=>state.user.userInfo)
 
   async function logoutUser(){
 
@@ -15,6 +16,10 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/login") 
 
+  }
+
+  const ViewProfile=()=>{
+    navigate("/profile")
   }
 
   return (
@@ -31,19 +36,21 @@ const Navbar = () => {
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            src={user?.photoUrl||"https://res.cloudinary.com/dmrzlkwx4/image/upload/v1748946528/x467zc4l25d1fqvrf1b6.jpg"} />
         </div>
       </div>
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
-          <a className="justify-between">
+
+          <button onClick={ViewProfile}>Profile</button>
+          {/* <a className="justify-between">
             Profile
             <span className="badge">New</span>
-          </a>
+          </a> */}
         </li>
-        <li><a>Settings</a></li>
+        <li><Link to="/pending-request">Pending-Request</Link></li>
         <li><button onClick={logoutUser}>Logout</button></li>
       </ul>
     </div>

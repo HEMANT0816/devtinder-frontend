@@ -20,12 +20,15 @@ const feedSlice=createSlice({
         incrementUserNumber:(state)=>{
             state.userNumber=state.userNumber+1;
         },
+        resetUserNumber:(state)=>{
+            state.userNumber=0;
+        }
         
 
 
     }
 });
 
-export const {setFeed,setPageNumber,incrementUserNumber} =feedSlice.actions;
+export const {setFeed,setPageNumber,incrementUserNumber,resetUserNumber} =feedSlice.actions;
 
 export default feedSlice.reducer;

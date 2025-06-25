@@ -1,2 +1,37 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@keyframes slideOutLeft {
+  0% {
+    transform: rotate(0deg) translateX(0%) scale(1);
+    opacity: 1;
+  }
+  20% {
+    transform: rotate(-5deg) translateX(-10%) scale(0.98);
+  }
+  100% {
+    transform: rotate(-10deg) translateX(-100%) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutRight {
+  0% {
+    transform: rotate(0deg) translateX(0%) scale(1);
+    opacity: 1;
+  }
+  20% {
+    transform: rotate(5deg) translateX(10%) scale(0.98);
+  }
+  100% {
+    transform: rotate(10deg) translateX(100%) scale(0.9);
+    opacity: 0;
+  }
+}
+
+.swipe-left {
+  animation: slideOutLeft 0.4s ease-in-out forwards;
+}
+
+.swipe-right {
+  animation: slideOutRight 0.4s ease-in-out forwards;
+}
