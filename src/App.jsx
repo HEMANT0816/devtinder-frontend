@@ -11,6 +11,7 @@ import Signup from "./pages/Signup"
 import Otp from "./pages/Otp"
 import TakeABreak from "./pages/TakeAbreak"
 import PendingRequest from "./pages/PendingRequest"
+import NoPendingRequests from "./pages/NoPendingRequests"
 function App() {
   const isLoggedIn=useSelector((state)=>state.user.isLoggedIn)
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/signup' element={<Signup/>} />
             <Route path='/otp' element={<Otp/>} />
             <Route path='/takeABreak' element={<TakeABreak/>} />
+            <Route path='/noPendingRequests' element={<NoPendingRequests/>} />
             <Route path='*' element={<div className='text-3xl text-center'>404 Not Found</div>} />
           </Route>
         </Routes>

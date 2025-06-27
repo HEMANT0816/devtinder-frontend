@@ -33,7 +33,7 @@ const Card = () => {
       console.log("seeing the fetch Pendingdata",response?.data?.pendingRequests )
       if(response?.data?.pendingRequests.length==0){
        console.log("navigate by the useefect hook")
-        navigate('/takeABreak')
+        navigate('/noPendingRequests')
       }
 
       const userData=response?.data?.pendingRequests.map((element)=>element.senderId);
@@ -56,7 +56,7 @@ const Card = () => {
      
     if(userNumber>=userFeed.length-1&&userNumber!=9){
       console.log("hi from this navigate page is redirected")
-     navigate("/takeABreak")
+     navigate("/noPendingRequests")
 
     }
 
