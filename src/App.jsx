@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import Profile from "./components/common/Profile"
 import Signup from "./pages/Signup"
 import Otp from "./pages/Otp"
-import TakeABreak from "./pages/TakeAbreak"
+import TakeABreak from "./pages/TakeABreak"
 import PendingRequest from "./pages/PendingRequest"
 import NoPendingRequests from "./pages/NoPendingRequests"
 function App() {
